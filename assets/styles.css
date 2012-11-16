@@ -1,0 +1,91 @@
+body {
+	padding-top:40px;
+	background:url(img/metal-bg.jpg) repeat-x fixed 50% 50%;
+}
+
+nav ul li img {
+	height:30px;
+	display:inline-block;
+	margin:4px 0px 0px 0px;
+}
+
+.navbar-inner .container {
+	width:940px;
+}
+
+#main {
+	margin:0px 0px 0px 44px;
+	padding:10px;
+	background-image:-webkit-gradient(linear,0% 20%,0% 100%,from(#A093AD),to(#f1f2f2));
+	border-radius:0px 0px 10px 10px;
+}
+
+#main > h2 {
+	color:#fff;
+}
+
+.bookmark {
+	margin:20px 0px 0px 0px;
+	background:#fff;
+	padding:10px;
+	border:1px solid #444;
+	border-radius:6px;
+	box-shadow:0px 0px 4px #555;
+	font-family:"helvetica nueue",arial,sans-serif;
+}
+
+.bookmark .actions {
+	float:right;
+	margin:6px 0px 0px 10px;
+	visibility:hidden;
+}
+
+.bookmark.hover .actions {
+	visibility:visible;
+}
+
+.bookmark .actions a {
+}
+
+.bookmark h3 {
+	font-family:"Chau Philomene One";
+	margin:0px;
+}
+
+.bookmark cite {
+}
+
+.bookmark p {
+	margin:6px 0px 0px 0px;
+}
+
+.bookmark .timestamp {
+	float:right;
+	font-size:11pt;
+	font-weight:normal;
+	color:#093;
+	font-family:"helvetica nueue",arial,sans-serif;
+}
+
+form {
+	background:#fff;
+	padding:10px;
+	border:1px solid #444;
+	border-radius:6px;
+	box-shadow:0px 0px 4px #555;
+}
+
+form h2 {
+	font-family:"Chau Philomene One";
+}
+
+form .form-actions {
+	background-image:-webkit-gradient(linear,0 0, 0 100%,from(#f5f5f5),to(#fff));
+}
+
+footer {
+	margin:10px 0px 0px 0px;
+	text-align:center;
+	font-size:10pt;
+	color:#fff;
+}
