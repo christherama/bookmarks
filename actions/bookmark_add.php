@@ -12,7 +12,7 @@ $message = null;
 $post = false;
 
 // If this is a post request
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if(is_post()) {
 	// Extract POST data
 	extract($_POST);
 	$bookmark_name = addslashes($bookmark_name);
@@ -28,8 +28,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Connect to the DB
 		$conn = new mysqli('localhost',DB_USER,DB_PASSWORD,DB_NAME);
 
+		// Check for a selected category
+		$category_id = isset($category_id) && $category_id != '' ? $category_id : 'NULL';
+
 		// Construct query
-		$sql = "INSERT INTO bookmarks (bookmark_name,bookmark_url,bookmark_description) VALUES('$bookmark_name','$bookmark_url','$bookmark_description')";
+		$sql = "INSERT INTO bookmarks (bookmark_name,bookmark_url,bookmark_description,category_id) VALUES('$bookmark_name','$bookmark_url','$bookmark_description',$category_id)";
 
 		// Execute query
 		$result = $conn->query($sql);

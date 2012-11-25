@@ -38,7 +38,7 @@ if($bookmarks == null) {
 	<div class="bookmark">
 		<div class="actions">
 			<a class="btn btn-mini" href="./?p=bookmark_edit&amp;id=<?php echo $b->bookmark_id?>"><i class="icon-edit"></i></a>
-			<a class="btn btn-mini btn-danger" href="./actions/bookmark_delete.php" onclick="return window.confirm('Are you sure you want to delete this contact?');"><i class="icon-trash icon-white"></i></a>
+			<a class="btn btn-mini btn-danger" href="./actions/bookmark_delete.php?id=<?php echo $b->bookmark_id?>" onclick="return window.confirm('Are you sure you want to delete this contact?');"><i class="icon-trash icon-white"></i></a>
 		</div>
 		<h3><?php echo $b->bookmark_name ?><span class="timestamp"><?php echo $b->bookmark_timestamp ?></span></h3>
 		<a href="<?php echo $b->bookmark_url ?>" target="_blank"><cite><?php echo $display_url ?></cite></a>

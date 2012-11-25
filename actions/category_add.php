@@ -12,7 +12,7 @@ $message = null;
 $post = false;
 
 // If this is a post request
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if(is_post()) {
 	// Extract POST data
 	extract($_POST);
 	$category_name = addslashes($category_name);

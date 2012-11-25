@@ -1,31 +1,4 @@
-<?php 
-// Connect to database
-$conn = new mysqli('localhost',DB_USER,DB_PASSWORD,DB_NAME);
-
-// Construct SQL
-$sql = 'SELECT * FROM categories';
-
-// Execute query
-$results = $conn->query($sql);
-
-$categories = null;
-
-// If query was successful (no SQL errors)...
-if ($results != null) {
-	// If there is at least one row in the result set...
-	if ($conn->affected_rows > 0) {
-		$categories = array();
-		// Loop through results, adding a table row
-		while($category = $results->fetch_object()) {
-			$categories[] = $category;
-		}
-	}
-}
-
-// Disconnect from DB
-unset($conn);
-?>
-
+<?php $categories = get_categories() ?>
 <div class="navbar-inner">
 	<div class="container">
 		<ul class="nav">
