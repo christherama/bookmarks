@@ -11,7 +11,7 @@
 					<li class="nav-header">no categories</li>
 				<?php else:?>
 					<?php foreach($categories as $c):?>
-						<li><a href="./?p=category&amp;id=<?php echo $c->category_id?>"><?php echo $c->category_name?></a></li>
+						<li><a href="./?p=category&amp;id=<?php echo $c['id'] ?>"><?php echo $c['name'] ?></a></li>
 					<?php endforeach;?>
 				<?php endif;?>
 				</ul>

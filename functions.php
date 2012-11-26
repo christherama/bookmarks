@@ -33,12 +33,16 @@ function redirect($location,$message=null,$post=false) {
 	header("Location:$location");
 }
 
+/**
+ * Fetches all categories from the database
+ * @return Array of categories
+ */
 function get_categories() {
 	// Connect to database
 	$conn = new mysqli('localhost',DB_USER,DB_PASSWORD,DB_NAME);
 
 	// Construct SQL
-	$sql = 'SELECT * FROM categories';
+	$sql = 'SELECT category_id AS id, category_name AS name FROM categories';
 
 	// Execute query
 	$results = $conn->query($sql);
@@ -51,7 +55,7 @@ function get_categories() {
 		if ($conn->affected_rows > 0) {
 			$categories = array();
 			// Loop through results, adding a table row
-			while($category = $results->fetch_object()) {
+			while($category = $results->fetch_assoc()) {
 				$categories[] = $category;
 			}
 		}
@@ -61,4 +65,65 @@ function get_categories() {
 	unset($conn);
 
 	return $categories;
+}
+
+/**
+ * Generates an input (text/password) element with the indicated name & type, checking for SESSION data for default values
+ * @param String $name Value to use in name attribute
+ * @param String $type Value to use in type attribute
+ * @param String $placeholder Value to use in placeholder attribute
+ * @param String $class Class name(s) for input element
+ * @return String input element
+ */
+function input($name, $type, $placeholder='', $class='', $id='') {
+	$value = '';
+	// Check for session data for this input element
+	if(isset($_SESSION['POST'][$name])) {
+		$value = $_SESSION['POST'][$name];
+		unset($_SESSION['POST'][$name]);
+	}
+
+	return "<input name=\"$name\" type=\"$type\" id=\"$id\" class=\"$class\" placeholder=\"$placeholder\" value=\"$value\" />";
+}
+/**
+ * Generates a textarea element with the indicated name, checking for SESSION data for default values
+ * @param String $name Value to use in name attribute
+ * @param Integer $rows Value to use in rows attribute
+ * @param String $placeholder Value to use in placeholder attribute
+ * @param String $class Class name(s) for input element
+ * @return String textarea element
+ */
+function textarea($name, $rows=2, $placeholder='', $class='', $id='') {
+	$value = '';
+	// Check for session data for this input element
+	if(isset($_SESSION['POST'][$name])) {
+		$value = $_SESSION['POST'][$name];
+		unset($_SESSION['POST'][$name]);
+	}
+
+	return "<textarea name=\"$name\" id=\"$id\" rows=\"$rows\" class=\"$class\" placeholder=\"$placeholder\">$value</textarea>";
+}
+
+/**
+ * Generates a select element with the indicated options & name, checking for SESSION data for default values
+ * @param Array $options Array of options, each in the form array(id => someid, value => somevalue)
+ * @param String $name Value to use in name attribute
+ * @param String $placeholder Value to use in placeholder attribute
+ * @param String $class Class name(s) for input element
+ * @return String textarea element
+ */
+function dropdown($options, $name, $placeholder='', $class='', $id='') {
+	$select = "<select name=\"$name\" class=\"$class\" id=\"$id\">";
+	$select .=		"<option value=\"\">$placeholder</option>";
+	foreach($options as $option) {
+		$selected = '';
+		if(isset($_SESSION['POST'][$name]) && $_SESSION['POST'][$name] == $option['id']) {
+			$selected = 'selected="selected"';
+			unset($_SESSION['POST'][$name]);
+		}
+
+		$select .=	"<option value=\"{$option['id']}\" $selected>{$option['name']}</option>";
+	}
+	$select .= "</select>";
+	return $select;
 }
