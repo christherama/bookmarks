@@ -75,12 +75,13 @@ function get_categories() {
  * @param String $class Class name(s) for input element
  * @return String input element
  */
-function input($name, $type, $placeholder='', $class='', $id='') {
-	$value = '';
+function input($name, $value, $type, $placeholder='', $class='', $id='') {
 	// Check for session data for this input element
-	if(isset($_SESSION['POST'][$name])) {
+	if($value == null && isset($_SESSION['POST'][$name])) {
 		$value = $_SESSION['POST'][$name];
 		unset($_SESSION['POST'][$name]);
+	} else {
+		$value = '';
 	}
 
 	return "<input name=\"$name\" type=\"$type\" id=\"$id\" class=\"$class\" placeholder=\"$placeholder\" value=\"$value\" />";
@@ -93,12 +94,13 @@ function input($name, $type, $placeholder='', $class='', $id='') {
  * @param String $class Class name(s) for input element
  * @return String textarea element
  */
-function textarea($name, $rows=2, $placeholder='', $class='', $id='') {
-	$value = '';
+function textarea($name, $value, $rows=2, $placeholder='', $class='', $id='') {
 	// Check for session data for this input element
-	if(isset($_SESSION['POST'][$name])) {
+	if($value == null && isset($_SESSION['POST'][$name])) {
 		$value = $_SESSION['POST'][$name];
 		unset($_SESSION['POST'][$name]);
+	} else {
+		$value = '';
 	}
 
 	return "<textarea name=\"$name\" id=\"$id\" rows=\"$rows\" class=\"$class\" placeholder=\"$placeholder\">$value</textarea>";
@@ -112,14 +114,16 @@ function textarea($name, $rows=2, $placeholder='', $class='', $id='') {
  * @param String $class Class name(s) for input element
  * @return String textarea element
  */
-function dropdown($options, $name, $placeholder='', $class='', $id='') {
+function dropdown($options, $value, $name, $placeholder='', $class='', $id='') {
 	$select = "<select name=\"$name\" class=\"$class\" id=\"$id\">";
 	$select .=		"<option value=\"\">$placeholder</option>";
 	foreach($options as $option) {
 		$selected = '';
-		if(isset($_SESSION['POST'][$name]) && $_SESSION['POST'][$name] == $option['id']) {
+		if($value == null && isset($_SESSION['POST'][$name]) && $_SESSION['POST'][$name] == $option['id']) {
 			$selected = 'selected="selected"';
 			unset($_SESSION['POST'][$name]);
+		} elseif ($value == $option['id']) {
+			$selected = 'selected="selected"';
 		}
 
 		$select .=	"<option value=\"{$option['id']}\" $selected>{$option['name']}</option>";
